@@ -105,7 +105,8 @@ class GameViewModel: ObservableObject {
     func resetGame() {
         gameState = .ready
         score = 0
-        birdPosition = CGPoint(x: 100, y: 300) // Initial pos
+        let startY = screenSize.height > 0 ? screenSize.height / 2 : 300
+        birdPosition = CGPoint(x: 100, y: startY)
         birdVelocity = 0
         birdRotation = 0
         pipes.removeAll()
