@@ -9,12 +9,6 @@
 
 ---
 
-### 🎮 Demo
-
-
-https://github.com/user-attachments/assets/33a8d444-8aaf-4fac-82ea-ee1eec337073
-
-
 ### 🧐 What is this?
 
 Flippy Lid is a simple Flappy Bird clone with a twist: **You control the bird by flapping your MacBook's lid!**
@@ -27,6 +21,10 @@ This project stands on the shoulders of giants (and hinge sensors):
 
 *   **Lid Angle Detection**: [LidAngleSensor](https://github.com/samhenrigold/LidAngleSensor) by Sam Henri Gold. This project pioneered the dark art of reading macOS hinge sensor references.
 *   **The Idea**: Directed by [this tweet](https://x.com/rebane2001/status/2007198231479103611) from @rebane2001, who first dreamed of using the lid angle as a jump trigger.
+
+### 🎮 Demo
+
+<img src="non-app-file/demo_video-ezgif.com-optimize.gif" height="400" alt="Demo GIF">
 
 ### ⚠️ Limitations & Compatibility
 
