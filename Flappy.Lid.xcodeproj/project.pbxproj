@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		B08DB0302F094740000D196E /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = B08DB02D2F0945D2000D196E /* fonts */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		B08DAFDB2F090922000D196E /* Flappy.Lid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flappy.Lid.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B08DB02D2F0945D2000D196E /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,6 +37,7 @@
 		B08DAFD22F090922000D196E = {
 			isa = PBXGroup;
 			children = (
+				B08DB02D2F0945D2000D196E /* fonts */,
 				B08DAFDD2F090922000D196E /* Flappy.Lid */,
 				B08DAFDC2F090922000D196E /* Products */,
 			);
@@ -109,6 +115,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B08DB0302F094740000D196E /* fonts in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +266,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Flappy-Lid-Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -292,6 +300,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Flappy-Lid-Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

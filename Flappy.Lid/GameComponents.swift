@@ -37,3 +37,10 @@ struct PipeView: View {
             )
     }
 }
+
+extension Font {
+    static func flappy(size: CGFloat) -> Font {
+        return Font.custom("Flappy-Bird", size: size)
+            .weight(.heavy)
+    }
+}

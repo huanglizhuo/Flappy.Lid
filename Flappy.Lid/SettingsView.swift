@@ -14,22 +14,21 @@ struct SettingsView: View {
                 }
             
             VStack(spacing: 25) {
-                Text("Settings")
-                    .font(.largeTitle)
-                    .bold()
+                Text("SETTINGS")
+                    .font(.flappy(size: 40))
                     .foregroundColor(.white)
                 
                 Divider().background(Color.white)
                 
                 // 1. Game Difficulty
                 VStack(alignment: .leading) {
-                    Text("Game Difficulty")
-                        .font(.headline)
+                    Text("GAME DIFFICULTY")
+                        .font(.flappy(size: 24))
                         .foregroundColor(.gray)
                     
-                    Picker("Difficulty", selection: $gameEngine.gameMode) {
-                        Text("Simple (Wide Gap)").tag(GameMode.simple)
-                        Text("Normal (Standard)").tag(GameMode.normal)
+                    Picker("DIFFICULTY", selection: $gameEngine.gameMode) {
+                        Text("SIMPLE").tag(GameMode.simple)
+                        Text("NORMAL").tag(GameMode.normal)
                     }
                     .pickerStyle(.segmented)
                 }
@@ -38,30 +37,31 @@ struct SettingsView: View {
                 
                 // 2. Input Methods
                 VStack(alignment: .leading) {
-                    Text("Input Configuration")
-                        .font(.headline)
+                    Text("INPUT CONFIGURATION")
+                        .font(.flappy(size: 24))
                         .foregroundColor(.gray)
                     
-                    Toggle("Enable Space Key Jump", isOn: $gameEngine.isSpaceJumpEnabled)
+                    Toggle("ENABLE SPACE KEY JUMP", isOn: $gameEngine.isSpaceJumpEnabled)
                         .toggleStyle(.switch)
                         .tint(.green)
+                        .font(.flappy(size: 20))
                     
                     Divider().background(Color.gray.opacity(0.3))
                     
-                    Text("Lid Trigger Mode")
-                        .font(.subheadline)
+                    Text("LID TRIGGER MODE")
+                        .font(.flappy(size: 24))
                         .foregroundColor(.gray)
                     
-                    Picker("Trigger Mode", selection: $lidMonitor.triggerMode) {
-                        Text("Instant (> X)").tag(TriggerMode.instant)
-                        Text("Flap (Up & Down)").tag(TriggerMode.flap)
+                    Picker("TRIGGER MODE", selection: $lidMonitor.triggerMode) {
+                        Text("INSTANT").tag(TriggerMode.instant)
+                        Text("FLAP").tag(TriggerMode.flap)
                     }
                     .pickerStyle(.segmented)
                     
                     Text(lidMonitor.triggerMode == .instant ? 
-                         "Jumps immediately when lid moves faster than threshold." :
-                         "Jumps when you quickly open AND close the lid (or vice versa) within 0.5s.")
-                        .font(.caption)
+                         "JUMPS IMMEDIATELY WHEN LID MOVES FASTER THAN THRESHOLD." :
+                         "JUMPS WHEN YOU QUICKLY OPEN AND CLOSE THE LID (OR VICE VERSA) WITHIN 0.5S.")
+                        .font(.flappy(size: 16))
                         .foregroundColor(.white.opacity(0.7))
                         .padding(.top, 5)
                 }
@@ -71,18 +71,17 @@ struct SettingsView: View {
                 // 3. Sensitivity (Threshold)
                 VStack(alignment: .leading) {
                     HStack {
-                        Text("Sensitivity Threshold (X)")
-                            .font(.headline)
+                        Text("SENSITIVITY THRESHOLD (X)")
+                            .font(.flappy(size: 24))
                             .foregroundColor(.gray)
                         Spacer()
                         Text(String(format: "%.1f°", lidMonitor.jumpThreshold))
-                            .font(.title3)
-                            .bold()
+                            .font(.flappy(size: 24))
                             .foregroundColor(.yellow)
                     }
                     
                     Slider(value: $lidMonitor.jumpThreshold, in: 1.0...20.0, step: 0.5) {
-                        Text("Threshold")
+                        Text("THRESHOLD")
                     } minimumValueLabel: {
                         Text("1°").foregroundColor(.gray)
                     } maximumValueLabel: {
@@ -95,7 +94,7 @@ struct SettingsView: View {
                 
                 Spacer()
                 
-                Button("Reset to Recommended Defaults") {
+                Button("RESET TO RECOMMENDED DEFAULTS") {
                     withAnimation {
                         // Game Defaults
                         gameEngine.gameMode = .normal
@@ -108,13 +107,15 @@ struct SettingsView: View {
                 }
                 .foregroundColor(.red)
                 .buttonStyle(.plain)
+                .font(.flappy(size: 20))
                 .padding(.bottom, 10)
                 
-                Button("Close") {
+                Button("CLOSE") {
                     isPresented = false
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
+                .font(.flappy(size: 20))
                 .keyboardShortcut(.cancelAction) // Esc closes it?
             }
             .padding(40)

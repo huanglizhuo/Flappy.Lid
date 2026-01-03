@@ -37,36 +37,33 @@ struct GameView: View {
                 
                 // UI Layer
                 VStack {
-                    HStack {
-                        Text("Score: \(gameEngine.score)")
-                            .font(.largeTitle)
-                            .bold()
+                    ZStack(alignment: .top) {
+                        // Centered Score
+                        Text("\(gameEngine.score)")
+                            .font(.flappy(size: 60))
                             .foregroundColor(.white)
                             .shadow(radius: 2)
                         
-                        Spacer()
-                        
-                        // Live Sensor Value (Debug/Feedback)
-                        VStack(alignment: .trailing) {
-                            Text("Angle: \(String(format: "%.1f", lidMonitor.currentAngle))°")
-                                .font(.monospacedDigit(.headline)())
-                                .foregroundColor(.white)
-                            Text("Angle Δ: \(String(format: "%.1f", lidMonitor.currentDelta))")
-                                .font(.monospacedDigit(.headline)())
-                                .foregroundColor(abs(lidMonitor.currentDelta) > lidMonitor.jumpThreshold ? .green : .white)
-                            Text("Mode: \(lidMonitor.triggerMode.rawValue.capitalized)")
-                                .font(.caption)
-                                .foregroundColor(.white.opacity(0.8))
+                        // Right-aligned Controls
+                        HStack {
+                            Spacer()
+                            
+                            // Live Sensor Value (Debug/Feedback)
+                            VStack(alignment: .trailing) {
+                                Text("ANGLE: \(String(format: "%.1f", lidMonitor.currentAngle))°")
+                                    .font(.flappy(size: 16))
+                                    .foregroundColor(.white)
+                            }
+                            .padding(.trailing, 10)
+                            
+                            // Settings Button (Visual hint)
+                            Button(action: { isSettingsPresented = true }) {
+                                Image(systemName: "gearshape.fill")
+                                    .foregroundColor(.white)
+                                    .font(.title)
+                            }
+                            .buttonStyle(.plain)
                         }
-                        .padding(.trailing, 20)
-                        
-                        // Settings Button (Visual hint)
-                        Button(action: { isSettingsPresented = true }) {
-                            Image(systemName: "gearshape.fill")
-                                .foregroundColor(.white)
-                                .font(.title)
-                        }
-                        .buttonStyle(.plain)
                     }
                     .padding()
                     Spacer()
@@ -75,55 +72,57 @@ struct GameView: View {
                 // State Overlay
                 if gameEngine.gameState == .ready && !isSettingsPresented {
                     VStack(spacing: 20) {
-                        Text("Flappy Lid")
-                            .font(.system(size: 50, weight: .heavy))
+                        Text("FLAPPY LID")
+                            .font(.flappy(size: 80))
                             .foregroundColor(.white)
                             .shadow(radius: 4)
                         
-                        Text("Move Lid to Jump")
-                            .font(.title2)
+                        Text("MOVE LID TO JUMP")
+                            .font(.flappy(size: 30))
                             .foregroundColor(.white)
                         
                         if gameEngine.isSpaceJumpEnabled {
-                            Text("(or press Space)")
-                                .font(.body)
+                            Text("(OR PRESS SPACE)")
+                                .font(.flappy(size: 20))
                                 .foregroundColor(.white.opacity(0.8))
                         }
                         
-                        Text("Shift + Space for Settings")
-                            .font(.caption)
+                        Text("SHIFT + SPACE FOR SETTINGS")
+                            .font(.flappy(size: 16))
                             .foregroundColor(.white.opacity(0.8))
                         
                         HStack(spacing: 20) {
-                            Button("Simple Mode") {
+                            Button("SIMPLE MODE") {
                                 gameEngine.gameMode = .simple
                                 gameEngine.startGame()
                             }
                             .buttonStyle(.borderedProminent)
+                            .font(.flappy(size: 16))
                             
-                            Button("Normal Mode") {
+                            Button("NORMAL MODE") {
                                 gameEngine.gameMode = .normal
                                 gameEngine.startGame()
                             }
                             .buttonStyle(.borderedProminent)
+                            .font(.flappy(size: 16))
                         }
                     }
                     .background(Color.black.opacity(0.4).cornerRadius(20).padding(-20))
                 } else if gameEngine.gameState == .gameOver && !isSettingsPresented {
                     VStack(spacing: 20) {
-                        Text("Game Over")
-                            .font(.system(size: 50, weight: .heavy))
+                        Text("GAME OVER")
+                            .font(.flappy(size: 60))
                             .foregroundColor(.red)
                             .shadow(radius: 4)
                         
-                        Text("Score: \(gameEngine.score)")
-                            .font(.title)
+                        Text("SCORE: \(gameEngine.score)")
+                            .font(.flappy(size: 40))
                             .foregroundColor(.white)
                         
-                        Button("Restart") {
+                        Button("RESTART") {
                             gameEngine.resetGame()
                         }
-                        .font(.title2)
+                        .font(.flappy(size: 30))
                         .buttonStyle(.borderedProminent)
                         .tint(.green)
                     }
