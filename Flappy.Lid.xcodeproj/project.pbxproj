@@ -8,11 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		B08DB0302F094740000D196E /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = B08DB02D2F0945D2000D196E /* fonts */; };
+		B08DB0652F094D3F000D196E /* die.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B08DB0602F094D3F000D196E /* die.mp3 */; };
+		B08DB0662F094D3F000D196E /* flappy-bird-hit-sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B08DB0622F094D3F000D196E /* flappy-bird-hit-sound.mp3 */; };
+		B08DB0672F094D3F000D196E /* swoosh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B08DB0642F094D3F000D196E /* swoosh.mp3 */; };
+		B08DB0682F094D3F000D196E /* flap.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B08DB0612F094D3F000D196E /* flap.mp3 */; };
+		B08DB0692F094D3F000D196E /* point.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B08DB0632F094D3F000D196E /* point.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B08DAFDB2F090922000D196E /* Flappy.Lid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flappy.Lid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B08DB02D2F0945D2000D196E /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
+		B08DB0602F094D3F000D196E /* die.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = die.mp3; sourceTree = "<group>"; };
+		B08DB0612F094D3F000D196E /* flap.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = flap.mp3; sourceTree = "<group>"; };
+		B08DB0622F094D3F000D196E /* flappy-bird-hit-sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "flappy-bird-hit-sound.mp3"; sourceTree = "<group>"; };
+		B08DB0632F094D3F000D196E /* point.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = point.mp3; sourceTree = "<group>"; };
+		B08DB0642F094D3F000D196E /* swoosh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = swoosh.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -40,6 +50,7 @@
 				B08DB02D2F0945D2000D196E /* fonts */,
 				B08DAFDD2F090922000D196E /* Flappy.Lid */,
 				B08DAFDC2F090922000D196E /* Products */,
+				B08DB0582F094BD6000D196E /* SoundTrack */,
 			);
 			sourceTree = "<group>";
 		};
@@ -49,6 +60,18 @@
 				B08DAFDB2F090922000D196E /* Flappy.Lid.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B08DB0582F094BD6000D196E /* SoundTrack */ = {
+			isa = PBXGroup;
+			children = (
+				B08DB0602F094D3F000D196E /* die.mp3 */,
+				B08DB0612F094D3F000D196E /* flap.mp3 */,
+				B08DB0622F094D3F000D196E /* flappy-bird-hit-sound.mp3 */,
+				B08DB0632F094D3F000D196E /* point.mp3 */,
+				B08DB0642F094D3F000D196E /* swoosh.mp3 */,
+			);
+			path = SoundTrack;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -115,6 +138,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B08DB0652F094D3F000D196E /* die.mp3 in Resources */,
+				B08DB0662F094D3F000D196E /* flappy-bird-hit-sound.mp3 in Resources */,
+				B08DB0672F094D3F000D196E /* swoosh.mp3 in Resources */,
+				B08DB0682F094D3F000D196E /* flap.mp3 in Resources */,
+				B08DB0692F094D3F000D196E /* point.mp3 in Resources */,
 				B08DB0302F094740000D196E /* fonts in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

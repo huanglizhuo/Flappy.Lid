@@ -1,0 +1,128 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project /Users/lizhuo/owork/Flappy.Lid/Flappy.Lid.xcodeproj -scheme Flappy.Lid -destination platform=macOS build
+
+2026-01-03 21:14:32.608 xcodebuild[90354:320764468] [MT] IDERunDestination: Supported platforms for the buildables in the current scheme is empty.
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:macOS, arch:arm64, id:00006000-0010093C0262801E, name:My Mac }
+{ platform:macOS, arch:x86_64, id:00006000-0010093C0262801E, name:My Mac }
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (1 target)
+    Target 'Flappy.Lid' in project 'Flappy.Lid' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+Build description signature: e3ccb0318823e19e1ab4856f20a86950
+Build description path: /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Intermediates.noindex/XCBuildData/e3ccb0318823e19e1ab4856f20a86950.xcbuilddata
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk /Users/lizhuo/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/macosx26.1-25B74-3ae1261907bdadc328169391a47051a6.sdkstatcache
+    cd /Users/lizhuo/owork/Flappy.Lid/Flappy.Lid.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk -o /Users/lizhuo/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/macosx26.1-25B74-3ae1261907bdadc328169391a47051a6.sdkstatcache
+
+WriteAuxiliaryFile /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Intermediates.noindex/Flappy.Lid.build/Debug/Flappy.Lid.build/Objects-normal/arm64/Flappy.Lid.SwiftFileList (in target 'Flappy.Lid' from project 'Flappy.Lid')
+    cd /Users/lizhuo/owork/Flappy.Lid
+    write-file /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Intermediates.noindex/Flappy.Lid.build/Debug/Flappy.Lid.build/Objects-normal/arm64/Flappy.Lid.SwiftFileList
+
+WriteAuxiliaryFile /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Intermediates.noindex/Flappy.Lid.build/Debug/Flappy.Lid.build/Objects-normal/arm64/Flappy.Lid.SwiftConstValuesFileList (in target 'Flappy.Lid' from project 'Flappy.Lid')
+    cd /Users/lizhuo/owork/Flappy.Lid
+    write-file /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Intermediates.noindex/Flappy.Lid.build/Debug/Flappy.Lid.build/Objects-normal/arm64/Flappy.Lid.SwiftConstValuesFileList
+
+WriteAuxiliaryFile /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Intermediates.noindex/Flappy.Lid.build/Debug/Flappy.Lid.build/Objects-normal/arm64/Flappy.Lid.LinkFileList (in target 'Flappy.Lid' from project 'Flappy.Lid')
+    cd /Users/lizhuo/owork/Flappy.Lid
+    write-file /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Intermediates.noindex/Flappy.Lid.build/Debug/Flappy.Lid.build/Objects-normal/arm64/Flappy.Lid.LinkFileList
+
+ProcessProductPackaging "" /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Intermediates.noindex/Flappy.Lid.build/Debug/Flappy.Lid.build/Flappy.Lid.app.xcent (in target 'Flappy.Lid' from project 'Flappy.Lid')
+    cd /Users/lizhuo/owork/Flappy.Lid
+    
+    Entitlements:
+    
+    {
+    "com.apple.security.files.user-selected.read-only" = 1;
+    "com.apple.security.get-task-allow" = 1;
+}
+    
+    builtin-productPackagingUtility -entitlements -format xml -o /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Intermediates.noindex/Flappy.Lid.build/Debug/Flappy.Lid.build/Flappy.Lid.app.xcent
+
+ProcessProductPackagingDER /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Intermediates.noindex/Flappy.Lid.build/Debug/Flappy.Lid.build/Flappy.Lid.app.xcent /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Intermediates.noindex/Flappy.Lid.build/Debug/Flappy.Lid.build/Flappy.Lid.app.xcent.der (in target 'Flappy.Lid' from project 'Flappy.Lid')
+    cd /Users/lizhuo/owork/Flappy.Lid
+    /usr/bin/derq query -f xml -i /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Intermediates.noindex/Flappy.Lid.build/Debug/Flappy.Lid.build/Flappy.Lid.app.xcent -o /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Intermediates.noindex/Flappy.Lid.build/Debug/Flappy.Lid.build/Flappy.Lid.app.xcent.der --raw
+
+CpResource /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources/bestscore.mp3 /Users/lizhuo/owork/Flappy.Lid/SoundTrack/bestscore.mp3 (in target 'Flappy.Lid' from project 'Flappy.Lid')
+    cd /Users/lizhuo/owork/Flappy.Lid
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/lizhuo/owork/Flappy.Lid/SoundTrack/bestscore.mp3 /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources
+error: /Users/lizhuo/owork/Flappy.Lid/SoundTrack/bestscore.mp3: No such file or directory (in target 'Flappy.Lid' from project 'Flappy.Lid')
+
+CpResource /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources/flappy_bgm.mp3 /Users/lizhuo/owork/Flappy.Lid/SoundTrack/flappy_bgm.mp3 (in target 'Flappy.Lid' from project 'Flappy.Lid')
+    cd /Users/lizhuo/owork/Flappy.Lid
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/lizhuo/owork/Flappy.Lid/SoundTrack/flappy_bgm.mp3 /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources
+error: /Users/lizhuo/owork/Flappy.Lid/SoundTrack/flappy_bgm.mp3: No such file or directory (in target 'Flappy.Lid' from project 'Flappy.Lid')
+
+CpResource /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources/flappy_failed.mp3 /Users/lizhuo/owork/Flappy.Lid/SoundTrack/flappy_failed.mp3 (in target 'Flappy.Lid' from project 'Flappy.Lid')
+    cd /Users/lizhuo/owork/Flappy.Lid
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/lizhuo/owork/Flappy.Lid/SoundTrack/flappy_failed.mp3 /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources
+error: /Users/lizhuo/owork/Flappy.Lid/SoundTrack/flappy_failed.mp3: No such file or directory (in target 'Flappy.Lid' from project 'Flappy.Lid')
+
+CpResource /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources/swoosh.mp3 /Users/lizhuo/owork/Flappy.Lid/SoundTrack/swoosh.mp3 (in target 'Flappy.Lid' from project 'Flappy.Lid')
+    cd /Users/lizhuo/owork/Flappy.Lid
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/lizhuo/owork/Flappy.Lid/SoundTrack/swoosh.mp3 /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources
+
+CpResource /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources/point.mp3 /Users/lizhuo/owork/Flappy.Lid/SoundTrack/point.mp3 (in target 'Flappy.Lid' from project 'Flappy.Lid')
+    cd /Users/lizhuo/owork/Flappy.Lid
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/lizhuo/owork/Flappy.Lid/SoundTrack/point.mp3 /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources
+
+Ld /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/MacOS/__preview.dylib normal (in target 'Flappy.Lid' from project 'Flappy.Lid')
+    cd /Users/lizhuo/owork/Flappy.Lid
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-macos15.6 -dynamiclib -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk -O0 -L/Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug -F/Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug -install_name @rpath/Flappy.Lid.debug.dylib -rdynamic -Xlinker -no_deduplicate -Xlinker -dependency_info -Xlinker /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Intermediates.noindex/Flappy.Lid.build/Debug/Flappy.Lid.build/Objects-normal/arm64/Flappy.Lid_dependency_info.dat -Xlinker -no_adhoc_codesign -o /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/MacOS/__preview.dylib
+
+CpResource /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources/flappy_wing.mp3 /Users/lizhuo/owork/Flappy.Lid/SoundTrack/flappy_wing.mp3 (in target 'Flappy.Lid' from project 'Flappy.Lid')
+    cd /Users/lizhuo/owork/Flappy.Lid
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/lizhuo/owork/Flappy.Lid/SoundTrack/flappy_wing.mp3 /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources
+error: /Users/lizhuo/owork/Flappy.Lid/SoundTrack/flappy_wing.mp3: No such file or directory (in target 'Flappy.Lid' from project 'Flappy.Lid')
+
+CpResource /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources/flappy_hit.mp3 /Users/lizhuo/owork/Flappy.Lid/SoundTrack/flappy_hit.mp3 (in target 'Flappy.Lid' from project 'Flappy.Lid')
+    cd /Users/lizhuo/owork/Flappy.Lid
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/lizhuo/owork/Flappy.Lid/SoundTrack/flappy_hit.mp3 /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources
+error: /Users/lizhuo/owork/Flappy.Lid/SoundTrack/flappy_hit.mp3: No such file or directory (in target 'Flappy.Lid' from project 'Flappy.Lid')
+
+CpResource /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources/flappy-bird-hit-sound.mp3 /Users/lizhuo/owork/Flappy.Lid/SoundTrack/flappy-bird-hit-sound.mp3 (in target 'Flappy.Lid' from project 'Flappy.Lid')
+    cd /Users/lizhuo/owork/Flappy.Lid
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/lizhuo/owork/Flappy.Lid/SoundTrack/flappy-bird-hit-sound.mp3 /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources
+
+CpResource /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources/flap.mp3 /Users/lizhuo/owork/Flappy.Lid/SoundTrack/flap.mp3 (in target 'Flappy.Lid' from project 'Flappy.Lid')
+    cd /Users/lizhuo/owork/Flappy.Lid
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/lizhuo/owork/Flappy.Lid/SoundTrack/flap.mp3 /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources
+
+CpResource /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources/die.mp3 /Users/lizhuo/owork/Flappy.Lid/SoundTrack/die.mp3 (in target 'Flappy.Lid' from project 'Flappy.Lid')
+    cd /Users/lizhuo/owork/Flappy.Lid
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/lizhuo/owork/Flappy.Lid/SoundTrack/die.mp3 /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources
+
+** BUILD FAILED **
+
+
+The following build commands failed:
+	CpResource /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources/bestscore.mp3 /Users/lizhuo/owork/Flappy.Lid/SoundTrack/bestscore.mp3 (in target 'Flappy.Lid' from project 'Flappy.Lid')
+	CpResource /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources/flappy_bgm.mp3 /Users/lizhuo/owork/Flappy.Lid/SoundTrack/flappy_bgm.mp3 (in target 'Flappy.Lid' from project 'Flappy.Lid')
+	CpResource /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources/flappy_failed.mp3 /Users/lizhuo/owork/Flappy.Lid/SoundTrack/flappy_failed.mp3 (in target 'Flappy.Lid' from project 'Flappy.Lid')
+	CpResource /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources/flappy_wing.mp3 /Users/lizhuo/owork/Flappy.Lid/SoundTrack/flappy_wing.mp3 (in target 'Flappy.Lid' from project 'Flappy.Lid')
+	CpResource /Users/lizhuo/Library/Developer/Xcode/DerivedData/Flappy.Lid-dnafhrkkkclhrqfdrrdasasnnuab/Build/Products/Debug/Flappy.Lid.app/Contents/Resources/flappy_hit.mp3 /Users/lizhuo/owork/Flappy.Lid/SoundTrack/flappy_hit.mp3 (in target 'Flappy.Lid' from project 'Flappy.Lid')
+	Building project Flappy.Lid with scheme Flappy.Lid
+(6 failures)

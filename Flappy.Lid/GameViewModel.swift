@@ -70,8 +70,11 @@ class GameViewModel: ObservableObject {
         let savedMode = UserDefaults.standard.string(forKey: "gameMode") ?? "normal"
         self.gameMode = GameMode(rawValue: savedMode) ?? .normal
         
-        // Load Space Jump Setting (Default to true for accessibility/testing)
+        // Load Space Jump Setting
         self.isSpaceJumpEnabled = UserDefaults.standard.object(forKey: "isSpaceJumpEnabled") as? Bool ?? true
+        
+        // Init Audio
+        AudioManager.shared.preloadSounds()
         
         resetGame()
     }
@@ -91,6 +94,7 @@ class GameViewModel: ObservableObject {
         resetGame()
         gameState = .playing
         lastPipeSpawnX = screenSize.width
+        AudioManager.shared.playSwoosh()
         
         // Start Game Loop
         timer = Timer.scheduledTimer(withTimeInterval: 0.016, repeats: true) { [weak self] _ in
@@ -116,6 +120,7 @@ class GameViewModel: ObservableObject {
             return
         }
         birdVelocity = jumpImpulse
+        AudioManager.shared.playJump()
     }
     
     private func gameLoop() {
@@ -126,10 +131,7 @@ class GameViewModel: ObservableObject {
         birdPosition.y += birdVelocity
         
         // Rotation (Visual)
-        // If rising, tilt up. If falling, tilt down.
         let targetRotation = birdVelocity < 0 ? -30.0 : 90.0
-        // rudimentary lerp or just set it for now? 
-        // Flappy bird snaps up, rotates down slowly.
         if birdVelocity < 0 {
             birdRotation = -30
         } else {
@@ -143,8 +145,6 @@ class GameViewModel: ObservableObject {
         }
         
         // 3. Spawning Pipes
-        // If last pipe is far enough, spawn new one
-        // Or if pipes is empty
         if pipes.isEmpty || (lastPipeSpawnX - pipes.last!.x > pipeSpacing) {
             spawnPipe()
         }
@@ -158,7 +158,6 @@ class GameViewModel: ObservableObject {
     
     private func spawnPipe() {
         // Random Gap Height
-        // Screen height e.g. 600. Gap center should verify margins.
         let margin: CGFloat = 100
         let minY = margin + (gameMode.pipeGap / 2)
         let maxY = screenSize.height - margin - (gameMode.pipeGap / 2)
@@ -167,16 +166,16 @@ class GameViewModel: ObservableObject {
         
         let newPipe = PipeModel(x: screenSize.width + 50, y: randomY)
         pipes.append(newPipe)
-        lastPipeSpawnX = newPipe.x // Not strictly needed if we check pipes.last
+        lastPipeSpawnX = newPipe.x
     }
     
     private func checkCollisions() {
         // Bird Rect
-        // let's assume bird is 40x40
         let birdRect = CGRect(x: birdPosition.x - 20, y: birdPosition.y - 20, width: 40, height: 40)
         
         // Ground / Ceiling
         if birdPosition.y < 0 || birdPosition.y > screenSize.height {
+            AudioManager.shared.playHit()
             gameOver()
             return
         }
@@ -188,14 +187,13 @@ class GameViewModel: ObservableObject {
             let gapHalf = gameMode.pipeGap / 2
             
             // Top Pipe Rect
-            // Top pipe goes from y=0 down to (gapCenter - gapHalf)
             let topPipeRect = CGRect(x: pipe.x - pipeWidth/2, y: 0, width: pipeWidth, height: pipe.y - gapHalf)
             
             // Bottom Pipe Rect
-            // Bottom pipe goes from (gapCenter + gapHalf) to height
             let bottomPipeRect = CGRect(x: pipe.x - pipeWidth/2, y: pipe.y + gapHalf, width: pipeWidth, height: screenSize.height - (pipe.y + gapHalf))
             
             if birdRect.intersects(topPipeRect) || birdRect.intersects(bottomPipeRect) {
+                AudioManager.shared.playHit()
                 gameOver()
                 return
             }
@@ -204,6 +202,7 @@ class GameViewModel: ObservableObject {
             if !pipe.isPassed && pipe.x < birdPosition.x {
                 pipes[i].isPassed = true
                 score += 1
+                AudioManager.shared.playScore()
             }
         }
     }
@@ -211,6 +210,11 @@ class GameViewModel: ObservableObject {
     private func gameOver() {
         gameState = .gameOver
         timer?.invalidate()
+        
+        // Slight delay for "Die" sound after hit logic if desired, or just play now
+        // Usually: Hit -> (Brief delay or fall) -> Die. 
+        // For simplicity: Play Hit immediately (above), play Failed here.
+        AudioManager.shared.playDie()
     }
     
     // Helper for indices to avoid copy-on-write issues in loops if needed, though 'indices(pipes)' is safer.
