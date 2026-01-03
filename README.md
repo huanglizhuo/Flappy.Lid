@@ -42,3 +42,9 @@ This project stands on the shoulders of giants (and hinge sensors):
 2.  Open `Flappy.Lid.xcodeproj` in Xcode.
 3.  Build & Run.
 4.  **Start Flapping!** 🦅
+
+### 📝 TODOs
+
+- [ ] Add background and other images for the game.
+- [ ] Refine the lid angle trigger logic.
+- [ ] Support build DMG file with github actions
