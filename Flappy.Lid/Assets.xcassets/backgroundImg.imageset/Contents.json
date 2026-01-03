@@ -1,11 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "PipeDown.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "backgroundImg.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

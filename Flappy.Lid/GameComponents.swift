@@ -5,11 +5,9 @@ struct BirdView: View {
     
     var body: some View {
         // Placeholder for Bird Image
-        Rectangle()
-            .fill(Color.yellow) // TODO: Replace with Image("Bird")
-            //.overlay(Image("Bird").resizable())
-            .frame(width: 40, height: 40)
-            .border(Color.black, width: 2)
+        Image("Bird")
+            .resizable()
+            .frame(width: 60, height: 40)
             .rotationEffect(.degrees(rotation))
     }
 }

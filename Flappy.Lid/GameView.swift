@@ -9,7 +9,9 @@ struct GameView: View {
         GeometryReader { geometry in
             ZStack {
                 // Background
-                Color.blue.opacity(0.6) // TODO: Replace with Image("Background")
+//                Image("backgroundImg")
+//                    .ignoresSafeArea()
+                Color(red: 162/255, green: 211/255, blue: 244/255) // #A2D3F4
                     .ignoresSafeArea()
                 
                 // Game Layer
