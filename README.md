@@ -11,11 +11,9 @@
 
 ### 🎮 Demo
 
-<div align="center">
-  <video src="non-app-file/demo_video.mp4" controls width="100%"></video>
-  <br>
-  <em>(If the video doesn't play, <a href="non-app-file/demo_video.mp4">click here to watch it</a>)</em>
-</div>
+
+https://github.com/user-attachments/assets/33a8d444-8aaf-4fac-82ea-ee1eec337073
+
 
 ### 🧐 What is this?
 
