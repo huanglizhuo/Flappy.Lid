@@ -13,7 +13,7 @@ struct ContentView: View {
             case .game:
                 GameView(gameEngine: gameEngine, lidMonitor: lidMonitor)
             case .keySimulator:
-                KeySimulatorView(lidMonitor: lidMonitor)
+                KeySimulatorView(gameEngine: gameEngine, lidMonitor: lidMonitor)
             case .selecting:
                 ModeSelectionView(gameEngine: gameEngine)
             }

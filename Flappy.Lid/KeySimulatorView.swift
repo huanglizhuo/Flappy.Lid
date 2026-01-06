@@ -2,18 +2,51 @@ import SwiftUI
 import ApplicationServices
 
 struct KeySimulatorView: View {
+    @ObservedObject var gameEngine: GameViewModel  // Added for Settings
     @ObservedObject var keySimulator = KeySimulator.shared
     @ObservedObject var lidMonitor: LidAngleMonitor
     @State private var isListeningForKey = false
+    @State private var showSettings = false // Added for Settings Sheet
     
     var body: some View {
-        VStack(spacing: 30) {
-            Text("KEY SIMULATOR MODE")
-                .font(.flappy(size: 40))
-                .foregroundColor(.white)
-                .shadow(radius: 5)
+        ZStack { // Wrap in ZStack for HUD overlay
+            // Background is transparent or handled by ContentView
             
-            // Visual Indicator
+            VStack(spacing: 30) {
+                // Top HUD
+                HStack {
+                    // Minimize Button
+                    Button(action: { 
+                        StatusBarManager.shared.minimizeToMenuBar()
+                    }) {
+                        Image(systemName: "arrow.down.right.and.arrow.up.left")
+                            .font(.system(size: 24))
+                            .foregroundColor(.white)
+                            .shadow(radius: 5)
+                            .padding()
+                    }
+                    .buttonStyle(.plain)
+                    .help("Minimize to Menu Bar")
+                    
+                    Spacer()
+                    
+                    // Settings Button
+                    Button(action: { showSettings = true }) {
+                        Image(systemName: "gearshape.fill")
+                            .font(.system(size: 30))
+                            .foregroundColor(.white)
+                            .shadow(radius: 5)
+                            .padding()
+                    }
+                    .buttonStyle(.plain)
+                }
+                
+                Text("KEY SIMULATOR MODE")
+                    .font(.flappy(size: 40))
+                    .foregroundColor(.white)
+                    .shadow(radius: 5)
+                
+                // Visual Indicator
             ZStack {
                 Circle()
                     .fill(Color.gray.opacity(0.3))
@@ -32,7 +65,7 @@ struct KeySimulatorView: View {
                         .font(.system(size: 60))
                         .foregroundColor(.white)
                     
-                    Text(keyCodeToName(keySimulator.targetKeyCode))
+                    Text(KeySimulator.shared.keyCodeToName(keySimulator.targetKeyCode))
                         .font(.flappy(size: 30))
                         .foregroundColor(.yellow)
                         .padding(.top, 10)
@@ -85,20 +118,16 @@ struct KeySimulatorView: View {
                 .font(.caption)
                 .foregroundColor(.gray)
                 .padding(.top, 20)
+            
+            Spacer() // Push content up slightly if needed
         }
+        .sheet(isPresented: $showSettings) {
+            SettingsView(isPresented: $showSettings, gameEngine: gameEngine, lidMonitor: lidMonitor)
+        }
+        } // End ZStack
     }
     
-    func keyCodeToName(_ code: CGKeyCode) -> String {
-        switch code {
-        case 49: return "SPACE"
-        case 36: return "ENTER"
-        case 123: return "LEFT"
-        case 124: return "RIGHT"
-        case 126: return "UP"
-        case 125: return "DOWN"
-        default: return "CODE: \(code)"
-        }
-    }
+    // Local helper removed, using KeySimulator.shared.keyCodeToName
 }
 
 // Invisible view to capture key input

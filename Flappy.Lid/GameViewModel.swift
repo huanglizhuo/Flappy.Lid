@@ -115,6 +115,17 @@ class GameViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+        
+        // Sync with StatusBarManager
+        monitor.$currentAngle
+            .sink { [weak self] angle in
+                guard let self = self, self.appMode == .keySimulator else { return }
+                // We should probably optimize this to not update every frame if not minimized?
+                // But for now, live update is fine.
+                let keyName = KeySimulator.shared.keyCodeToName(KeySimulator.shared.targetKeyCode)
+                StatusBarManager.shared.updateDisplay(angle: angle, keyName: keyName)
+            }
+            .store(in: &cancellables)
     }
     
     func startGame() {

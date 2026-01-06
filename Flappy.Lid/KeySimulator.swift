@@ -54,4 +54,16 @@ class KeySimulator: ObservableObject {
         let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true]
         return AXIsProcessTrustedWithOptions(options as CFDictionary)
     }
+    
+    func keyCodeToName(_ code: CGKeyCode) -> String {
+        switch code {
+        case 49: return "SPACE"
+        case 36: return "ENTER"
+        case 123: return "LEFT"
+        case 124: return "RIGHT"
+        case 126: return "UP"
+        case 125: return "DOWN"
+        default: return "CODE: \(code)"
+        }
+    }
 }
