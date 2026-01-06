@@ -7,6 +7,12 @@ enum GameState {
     case gameOver
 }
 
+enum AppMode: String {
+    case selecting // New start state
+    case game
+    case keySimulator
+}
+
 enum GameMode: String {
     case simple
     case normal
@@ -47,6 +53,17 @@ class GameViewModel: ObservableObject {
         }
     }
     
+    // App Mode
+    @Published var appMode: AppMode = .selecting {
+        didSet {
+            // We can still save it if we want to remember 'last used' for other reasons, 
+            // but we won't auto-load it on launch to bypass selection.
+            if appMode != .selecting {
+                UserDefaults.standard.set(appMode.rawValue, forKey: "appMode")
+            }
+        }
+    }
+    
     // Physics Constants
     private let gravity: CGFloat = 0.6
     private let jumpImpulse: CGFloat = -10.0
@@ -73,6 +90,9 @@ class GameViewModel: ObservableObject {
         // Load Space Jump Setting
         self.isSpaceJumpEnabled = UserDefaults.standard.object(forKey: "isSpaceJumpEnabled") as? Bool ?? true
         
+        // App Mode: Always start at .selecting
+        self.appMode = .selecting
+
         // Init Audio
         AudioManager.shared.preloadSounds()
         
@@ -83,8 +103,15 @@ class GameViewModel: ObservableObject {
         self.lidMonitor = monitor
         monitor.$jumpTriggered
             .sink { [weak self] triggered in
-                if triggered {
-                    self?.jump()
+                guard let self = self, triggered else { return }
+                
+                switch self.appMode {
+                case .game:
+                    self.jump()
+                case .keySimulator:
+                    KeySimulator.shared.simulatePress()
+                case .selecting:
+                    break
                 }
             }
             .store(in: &cancellables)

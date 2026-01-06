@@ -20,6 +20,21 @@ struct SettingsView: View {
                 
                 Divider().background(Color.white)
                 
+                // 0. App Mode (High Level)
+                VStack(alignment: .leading) {
+                    Text("APP MODE")
+                        .font(.flappy(size: 24))
+                        .foregroundColor(.gray)
+                    
+                    Picker("APP MODE", selection: $gameEngine.appMode) {
+                        Text("FLAPPY GAME").tag(AppMode.game)
+                        Text("KEY SIMULATOR").tag(AppMode.keySimulator)
+                    }
+                    .pickerStyle(.segmented)
+                }
+                
+                Divider().background(Color.gray.opacity(0.5))
+                
                 // 1. Game Difficulty
                 VStack(alignment: .leading) {
                     Text("GAME DIFFICULTY")

@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct GameView: View {
-    @StateObject private var gameEngine = GameViewModel()
-    @StateObject private var lidMonitor = LidAngleMonitor()
+    @ObservedObject var gameEngine: GameViewModel
+    @ObservedObject var lidMonitor: LidAngleMonitor
     @State private var isSettingsPresented = false
     
     var body: some View {
@@ -169,5 +169,5 @@ struct GameView: View {
 }
 
 #Preview {
-    GameView()
+    GameView(gameEngine: GameViewModel(), lidMonitor: LidAngleMonitor())
 }
