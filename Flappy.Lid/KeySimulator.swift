@@ -12,24 +12,36 @@ class KeySimulator: ObservableObject {
         }
     }
     
+    @Published var isHapticEnabled: Bool {
+        didSet {
+            UserDefaults.standard.set(isHapticEnabled, forKey: "sim_hapticEnabled")
+        }
+    }
+    
     // UI Feedback
     @Published var lastTriggerTime: Date?
     
     init() {
         let savedKey = UserDefaults.standard.integer(forKey: "sim_targetKeyCode")
-        // Default to Space (49) if 0 (which is 'a', somewhat ambiguous but safe enough, or we check specifically)
-        // Better: check if key exists. Space is 49.
+        // Default to Space (49)
         if savedKey == 0 && UserDefaults.standard.object(forKey: "sim_targetKeyCode") == nil {
             self.targetKeyCode = 49 // Space
         } else {
             self.targetKeyCode = CGKeyCode(savedKey)
         }
+        
+        self.isHapticEnabled = UserDefaults.standard.object(forKey: "sim_hapticEnabled") as? Bool ?? true
     }
     
     func simulatePress() {
         // Visual feedback
         DispatchQueue.main.async {
             self.lastTriggerTime = Date()
+        }
+        
+        // Haptic Feedback
+        if isHapticEnabled {
+            NSHapticFeedbackManager.defaultPerformer.perform(.generic, performanceTime: .now)
         }
         
         let source = CGEventSource(stateID: .hidSystemState)

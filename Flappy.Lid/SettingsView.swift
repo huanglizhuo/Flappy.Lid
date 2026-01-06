@@ -4,6 +4,7 @@ struct SettingsView: View {
     @Binding var isPresented: Bool
     @ObservedObject var gameEngine: GameViewModel
     @ObservedObject var lidMonitor: LidAngleMonitor
+    @ObservedObject var keySimulator = KeySimulator.shared
     
     var body: some View {
         ZStack {
@@ -60,6 +61,13 @@ struct SettingsView: View {
                         .toggleStyle(.switch)
                         .tint(.green)
                         .font(.flappy(size: 20))
+                    
+                    if gameEngine.appMode == .keySimulator || gameEngine.appMode == .selecting {
+                         Toggle("ENABLE HAPTIC FEEDBACK", isOn: $keySimulator.isHapticEnabled)
+                            .toggleStyle(.switch)
+                            .tint(.orange)
+                            .font(.flappy(size: 20))
+                    }
                     
                     Divider().background(Color.gray.opacity(0.3))
                     
