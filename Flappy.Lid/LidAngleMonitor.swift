@@ -3,8 +3,10 @@ import Combine
 import IOKit.hid
 
 enum TriggerMode: String, CaseIterable, Identifiable {
-    case instant
+    case openOrClose // formerly instant
     case flap
+    case openOnly
+    case closeOnly
     
     var id: String { self.rawValue }
 }
@@ -43,11 +45,17 @@ class LidAngleMonitor: ObservableObject {
         // Default to 4.0 if not set (checking for 0 is safe as threshold needs to be positive)
         self.jumpThreshold = savedThreshold > 0 ? savedThreshold : 4.0
         
-        if let savedModeRaw = UserDefaults.standard.string(forKey: "triggerMode"),
-           let mode = TriggerMode(rawValue: savedModeRaw) {
-            self.triggerMode = mode
+        if let savedModeRaw = UserDefaults.standard.string(forKey: "triggerMode") {
+            // Migration for legacy "instant" value
+            if savedModeRaw == "instant" {
+                self.triggerMode = .openOrClose
+            } else if let mode = TriggerMode(rawValue: savedModeRaw) {
+                self.triggerMode = mode
+            } else {
+                self.triggerMode = .flap
+            }
         } else {
-            self.triggerMode = .flap // Default to Flap
+            self.triggerMode = .openOnly // Default to Open Only
         }
         
         startMonitoring()
@@ -172,9 +180,20 @@ class LidAngleMonitor: ObservableObject {
     
     private func checkTrigger(delta: Double) {
         switch triggerMode {
-        case .instant:
+        case .openOrClose:
             // Absolute delta > threshold
             if abs(delta) > jumpThreshold {
+                triggerJump()
+            }
+            
+        case .openOnly:
+            if delta > jumpThreshold {
+                triggerJump()
+            }
+            
+        case .closeOnly:
+            // Delta is negative when closing. We want magnitude to exceed threshold.
+            if delta < -jumpThreshold {
                 triggerJump()
             }
             

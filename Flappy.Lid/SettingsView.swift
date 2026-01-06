@@ -53,17 +53,30 @@ struct SettingsView: View {
                         .foregroundColor(.gray)
                     
                     Picker("TRIGGER MODE", selection: $lidMonitor.triggerMode) {
-                        Text("INSTANT").tag(TriggerMode.instant)
+                        Text("OPEN/CLOSE").tag(TriggerMode.openOrClose)
+                        Text("OPEN ONLY").tag(TriggerMode.openOnly)
+                        Text("CLOSE ONLY").tag(TriggerMode.closeOnly)
                         Text("FLAP").tag(TriggerMode.flap)
                     }
                     .pickerStyle(.segmented)
                     
-                    Text(lidMonitor.triggerMode == .instant ? 
-                         "JUMPS IMMEDIATELY WHEN LID MOVES FASTER THAN THRESHOLD." :
-                         "JUMPS WHEN YOU QUICKLY OPEN AND CLOSE THE LID (OR VICE VERSA) WITHIN 0.5S.")
-                        .font(.flappy(size: 16))
-                        .foregroundColor(.white.opacity(0.7))
-                        .padding(.top, 5)
+                    Group {
+                        switch lidMonitor.triggerMode {
+                        case .openOrClose:
+                            Text("JUMPS WHEN LID MOVES FASTER THAN THRESHOLD IN ANY DIRECTION.")
+                        case .openOnly:
+                            Text("JUMPS ONLY WHEN YOU OPEN THE LID FASTER THAN THRESHOLD.")
+                        case .closeOnly:
+                            Text("JUMPS ONLY WHEN YOU CLOSE THE LID FASTER THAN THRESHOLD.")
+                        case .flap:
+                            Text("JUMPS WHEN YOU QUICKLY OPEN AND CLOSE THE LID (OR VICE VERSA) WITHIN 0.5S.")
+                        }
+                    }
+                    .font(.flappy(size: 16))
+                    .foregroundColor(.white.opacity(0.7))
+                    .padding(.top, 5)
+                    .multilineTextAlignment(.leading)
+                    .frame(height: 40) // Fixed height to prevent jitter
                 }
                 
                 Divider().background(Color.gray.opacity(0.5))
@@ -101,7 +114,7 @@ struct SettingsView: View {
                         gameEngine.isSpaceJumpEnabled = true
                         
                         // Sensor Defaults
-                        lidMonitor.triggerMode = .flap
+                        lidMonitor.triggerMode = .openOnly
                         lidMonitor.jumpThreshold = 4.0
                     }
                 }

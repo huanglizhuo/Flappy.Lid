@@ -48,3 +48,14 @@ This project stands on the shoulders of giants (and hinge sensors):
 - [ ] Add background and other images for the game.
 - [ ] Refine the lid angle trigger logic.
 - [ ] Support build DMG file with github actions
+
+### 🛠 How to Build DMG
+
+To build a standalone `.dmg` file for distribution:
+
+```bash
+chmod +x scripts/build_dmg.sh
+./scripts/build_dmg.sh
+```
+
+The output file will be in the `build/` directory.
