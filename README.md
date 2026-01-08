@@ -12,21 +12,24 @@
 ### 🧐 What is this?
 Flippy Lid is a fun tool for macOS users (need device to be ARM based mac), it has below features:
 
-<img src="non-app-file/main-app.png" width="300"  alt="Flippy Lid">
+<img src="non-app-file/main-app.png" height="300"  alt="Flippy Lid">
 
 
 ### 🎮 Demo
 
 #### GAME
 Simple Flappy Bird clone with a twist: **You control the bird by flapping your MacBook's lid!**
+
 <img src="non-app-file/demo_video-ezgif.com-optimize.gif" height="300" alt="Demo GIF">
 
 #### KEY SIM
 The app can simulate any key by flapping your lid. For example, you can simulate the space key by flapping your lid and play web version flappy bird.
+
 <img src="non-app-file/key-simu.gif" height="300" alt="Demo GIF">
 
 #### LID PASS
 The app can simulate preseted password by flapping your lid, this is useful for when you want to input your password in public places.
+
 <img src="non-app-file/lid-password.gif" height="300" alt="Demo GIF">
 
 ### 💡 Inspiration
