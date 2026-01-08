@@ -39,15 +39,6 @@ struct KeySimulatorView: View {
                             .buttonStyle(.plain)
                             
                             Spacer()
-                            
-                            // Settings Button (Enabled)
-//                            Button(action: { showSettings = true }) {
-//                                Image(systemName: "gearshape.fill")
-//                                    .font(.system(size: minDim * 0.06))
-//                                    .foregroundColor(.white)
-//                                    .shadow(radius: 5)
-//                            }
-//                            .buttonStyle(.plain)
                         }
                     }
                     .padding(.horizontal, 20)
