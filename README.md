@@ -44,8 +44,8 @@ Map your lid "flaps" to **ANY keyboard key**.
 
 #### 3. LID PASSWORD (James Bond Mode)
 Automatically type a preset password when you perform a secret "Lid Handshake".
-*   **Trigger**: Quickly open/close your lid 3 times (configurable).
-*   **Action**: Unlocks your laptop instantly.
+*   **Trigger**: Quickly open/close your lid 3 times.
+*   **Action**: Type the preset password in any input box.
 *   **Cool Factor**: 11/10 when done in a coffee shop.
 
 <img src="non-app-file/lid-password.gif" height="300" alt="Demo GIF">
