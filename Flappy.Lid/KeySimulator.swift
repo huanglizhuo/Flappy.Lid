@@ -62,6 +62,19 @@ class KeySimulator: ObservableObject {
         print("[KeySimulator] Sent Key Code: \(targetKeyCode)")
     }
     
+    func simulateSpecificKey(_ code: CGKeyCode) {
+        let source = CGEventSource(stateID: .hidSystemState)
+        
+        guard let keyDown = CGEvent(keyboardEventSource: source, virtualKey: code, keyDown: true) else { return }
+        guard let keyUp = CGEvent(keyboardEventSource: source, virtualKey: code, keyDown: false) else { return }
+        
+        keyDown.post(tap: .cghidEventTap)
+        Thread.sleep(forTimeInterval: 0.05)
+        keyUp.post(tap: .cghidEventTap)
+        
+        print("[KeySimulator] Sent Specific Key: \(code)")
+    }
+    
     func checkPermissions() -> Bool {
         let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true]
         return AXIsProcessTrustedWithOptions(options as CFDictionary)

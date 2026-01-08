@@ -14,6 +14,8 @@ struct ContentView: View {
                 GameView(gameEngine: gameEngine, lidMonitor: lidMonitor)
             case .keySimulator:
                 KeySimulatorView(gameEngine: gameEngine, lidMonitor: lidMonitor)
+            case .lidPassword:
+                LidPasswordView(gameEngine: gameEngine, lidMonitor: lidMonitor)
             case .selecting:
                 ModeSelectionView(gameEngine: gameEngine)
             }
@@ -77,6 +79,27 @@ struct ModeSelectionView: View {
                     }
                     .frame(width: 200, height: 200)
                     .background(Color.purple)
+                    .cornerRadius(20)
+                    .shadow(radius: 10)
+                }
+                .buttonStyle(.plain)
+                
+                // Lid Password Button
+                Button(action: {
+                    withAnimation {
+                        gameEngine.appMode = .lidPassword
+                    }
+                }) {
+                    VStack {
+                        Image(systemName: "lock.laptopcomputer")
+                            .font(.system(size: 80))
+                            .foregroundColor(.white)
+                        Text("LID PASS")
+                            .font(.flappy(size: 30))
+                            .foregroundColor(.white)
+                    }
+                    .frame(width: 200, height: 200)
+                    .background(Color.green)
                     .cornerRadius(20)
                     .shadow(radius: 10)
                 }

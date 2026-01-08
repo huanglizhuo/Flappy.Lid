@@ -11,6 +11,7 @@ enum AppMode: String {
     case selecting // New start state
     case game
     case keySimulator
+    case lidPassword
 }
 
 enum GameMode: String {
@@ -110,7 +111,7 @@ class GameViewModel: ObservableObject {
                     self.jump()
                 case .keySimulator:
                     KeySimulator.shared.simulatePress()
-                case .selecting:
+                case .selecting, .lidPassword:
                     break
                 }
             }
@@ -170,7 +171,7 @@ class GameViewModel: ObservableObject {
         birdPosition.y += birdVelocity
         
         // Rotation (Visual)
-        let targetRotation = birdVelocity < 0 ? -30.0 : 90.0
+        // let targetRotation = birdVelocity < 0 ? -30.0 : 90.0
         if birdVelocity < 0 {
             birdRotation = -30
         } else {

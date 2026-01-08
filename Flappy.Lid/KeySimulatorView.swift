@@ -5,6 +5,7 @@ struct KeySimulatorView: View {
     @ObservedObject var gameEngine: GameViewModel  // Added for Settings
     @ObservedObject var keySimulator = KeySimulator.shared
     @ObservedObject var lidMonitor: LidAngleMonitor
+    
     @State private var isListeningForKey = false
     @State private var showSettings = false // Added for Settings Sheet
     
@@ -12,7 +13,7 @@ struct KeySimulatorView: View {
         ZStack { // Wrap in ZStack for HUD overlay
             // Background is transparent or handled by ContentView
             
-            VStack(spacing: 30) {
+            VStack(spacing: 20) {
                 // Top HUD
                 HStack {
                     // Minimize Button
@@ -41,18 +42,32 @@ struct KeySimulatorView: View {
                     .buttonStyle(.plain)
                 }
                 
-                Text("KEY SIMULATOR MODE")
+                Text("KEY SIMULATOR")
                     .font(.flappy(size: 40))
                     .foregroundColor(.white)
                     .shadow(radius: 5)
                 
-                // Visual Indicator
+                singleKeyView
+                
+                Spacer() // Push content up slightly if needed
+            }
+            .sheet(isPresented: $showSettings) {
+                SettingsView(isPresented: $showSettings, gameEngine: gameEngine, lidMonitor: lidMonitor)
+            }
+        } // End ZStack
+    }
+
+
+    // MARK: - Single Key View
+    private var singleKeyView: some View {
+        VStack(spacing: 30) {
+            // Visual Indicator
             ZStack {
                 Circle()
                     .fill(Color.gray.opacity(0.3))
                     .frame(width: 200, height: 200)
                 
-                if let lastTrig = keySimulator.lastTriggerTime, 
+                if let lastTrig = keySimulator.lastTriggerTime,
                    Date().timeIntervalSince(lastTrig) < 0.2 {
                     Circle()
                         .fill(Color.green)
@@ -89,7 +104,7 @@ struct KeySimulatorView: View {
                         .foregroundColor(.white)
                     Button("Open Settings") {
                         // Prompt again which opens settings
-                        _ = keySimulator.checkPermissions() 
+                        _ = keySimulator.checkPermissions()
                     }
                 }
                 .padding()
@@ -118,17 +133,12 @@ struct KeySimulatorView: View {
                 .font(.caption)
                 .foregroundColor(.gray)
                 .padding(.top, 20)
-            
-            Spacer() // Push content up slightly if needed
         }
-        .sheet(isPresented: $showSettings) {
-            SettingsView(isPresented: $showSettings, gameEngine: gameEngine, lidMonitor: lidMonitor)
-        }
-        } // End ZStack
     }
-    
-    // Local helper removed, using KeySimulator.shared.keyCodeToName
 }
+
+// MARK: - Lid Password View
+
 
 // Invisible view to capture key input
 struct KeyReaderView: NSViewRepresentable {
