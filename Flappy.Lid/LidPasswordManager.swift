@@ -17,7 +17,17 @@ class LidPasswordManager: ObservableObject {
         didSet { UserDefaults.standard.set(maxActivationAngle, forKey: "lidPass_maxAngle") }
     }
     @Published var targetPassword: String {
-        didSet { UserDefaults.standard.set(targetPassword, forKey: "lidPass_password") }
+        didSet {
+            // Enforce Printable ASCII only (32-126)
+            let filtered = targetPassword.filter { char in
+                guard let ascii = char.asciiValue else { return false }
+                return ascii >= 32 && ascii <= 126
+            }
+            if filtered != targetPassword {
+                targetPassword = filtered
+            }
+            UserDefaults.standard.set(targetPassword, forKey: "lidPass_password")
+        }
     }
     
     // Runtime State
@@ -31,12 +41,15 @@ class LidPasswordManager: ObservableObject {
     private var gestureTimestamps: [Date] = []
     
     // Constants
-    private let triggerDelta: Double = 4.0
+    private let triggerDelta: Double = 2.0
     private let timeWindow: TimeInterval = 3.0
     
     // Configurable
     @Published var requiredCount: Int {
         didSet { UserDefaults.standard.set(requiredCount, forKey: "lidPass_requiredCount") }
+    }
+    @Published var isAutoEnterEnabled: Bool {
+        didSet { UserDefaults.standard.set(isAutoEnterEnabled, forKey: "lidPass_autoEnter") }
     }
     
     init() {
@@ -44,9 +57,12 @@ class LidPasswordManager: ObservableObject {
         self.maxActivationAngle = savedAngle == 0 ? 30.0 : savedAngle
         self.targetPassword = UserDefaults.standard.string(forKey: "lidPass_password") ?? ""
         
+        // Default requiredCount to 4 ("more than 3 times as default" interpreted as >3, so 4 is safe default, logic handles 0)
         let savedCount = UserDefaults.standard.integer(forKey: "lidPass_requiredCount")
-        self.requiredCount = savedCount == 0 ? 3 : savedCount
-    }
+        self.requiredCount = savedCount == 0 ? 4 : savedCount
+        
+        self.isAutoEnterEnabled = UserDefaults.standard.bool(forKey: "lidPass_autoEnter") // Defaults to false
+    } 
     
     func startMonitoring(lidMonitor: LidAngleMonitor) {
         lidMonitor.$currentAngle
@@ -96,7 +112,7 @@ class LidPasswordManager: ObservableObject {
         
         gestureTimestamps.append(now)
         openCount = gestureTimestamps.count
-        triggerFeedback(type: .generic) // Haptic tick per count
+        triggerFeedback(type: .generic)
         
         // Check Trigger
         if gestureTimestamps.count >= requiredCount {
@@ -109,13 +125,13 @@ class LidPasswordManager: ObservableObject {
         gestureTimestamps.removeAll()
         openCount = 0
     }
-    
+
+    // Updated performUnlock to handle modifiers
     private func performUnlock() {
         state = .success
         triggerFeedback(type: .success)
         
         guard !targetPassword.isEmpty else {
-            // Just transition back after a delay if empty
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 self.state = .monitoring
             }
@@ -123,43 +139,99 @@ class LidPasswordManager: ObservableObject {
         }
         
         let passwordToType = targetPassword
+        let autoEnter = isAutoEnterEnabled
         
         DispatchQueue.global().async {
-            // Type String
-            // We need a char -> keyCode mapper. 
-            // For MVP, we will assume simple ASCII or just type the string if we can.
-            // But CGEvent keyboard requires keycodes.
-            // Implementing a full mapper inside here is complex.
-            // Is there a simpler way? 
-            // We can use a Clipboard paste approach? "Cmd+V"? 
-            // Or just iterate standard keys.
-            // The prompt says "call key press api and each key press shoule have 50ms interval".
-            
             for char in passwordToType {
-                if let code = self.keyCode(for: char) {
+                if let (code, needsShift) = self.keyCode(for: char) {
+                    if needsShift {
+                        // Hold Shift (56 = Left Shift)
+                        KeySimulator.shared.simulateSpecificKey(56, downOnly: true)
+                        Thread.sleep(forTimeInterval: 0.05)
+                    }
+                    
                     KeySimulator.shared.simulateSpecificKey(code)
+                    
+                    if needsShift {
+                        // Release Shift
+                        KeySimulator.shared.simulateSpecificKey(56, upOnly: true)
+                    }
+                    
                     Thread.sleep(forTimeInterval: 0.05)
                 }
             }
             
-            // Enter
-            KeySimulator.shared.simulateSpecificKey(36)
+            // Auto Enter
+            if autoEnter {
+                KeySimulator.shared.simulateSpecificKey(36)
+            }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 print("Unlock Sequence Complete")
             }
         }
         
-        // Reset UI state after typing
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.state = .monitoring
         }
     }
     
-    private func keyCode(for char: Character) -> CGKeyCode? {
-        // Basic Map
-        let s = String(char).lowercased()
-        switch s {
+    // Returns (KeyCode, NeedsShift)
+    private func keyCode(for char: Character) -> (CGKeyCode, Bool)? {
+        guard let ascii = char.asciiValue else { return nil }
+        
+        // Basic Check
+        if ascii < 32 || ascii > 126 { return nil }
+        
+        // Special mapping for common symbols
+        switch char {
+        case "a"..."z": return (keyCodeForLower(char), false)
+        case "A"..."Z": return (keyCodeForLower(Character(char.lowercased())), true)
+        case "0"..."9": return (keyCodeForDigit(char), false)
+            
+        // Shifted Symbols on Standard US Layout
+        case "!": return (18, true) // Shift + 1
+        case "@": return (19, true) // Shift + 2
+        case "#": return (20, true) // Shift + 3
+        case "$": return (21, true) // Shift + 4
+        case "%": return (23, true) // Shift + 5
+        case "^": return (22, true) // Shift + 6
+        case "&": return (26, true) // Shift + 7
+        case "*": return (28, true) // Shift + 8
+        case "(": return (25, true) // Shift + 9
+        case ")": return (29, true) // Shift + 0
+        case "_": return (27, true) // Shift + -
+        case "+": return (24, true) // Shift + =
+        case "{": return (33, true) // Shift + [
+        case "}": return (30, true) // Shift + ]
+        case "|": return (42, true) // Shift + \
+        case ":": return (41, true) // Shift + ;
+        case "\"": return (39, true)// Shift + '
+        case "<": return (43, true) // Shift + ,
+        case ">": return (47, true) // Shift + .
+        case "?": return (44, true) // Shift + /
+        case "~": return (50, true) // Shift + `
+            
+        // Unshifted Symbols
+        case "-": return (27, false)
+        case "=": return (24, false)
+        case "[": return (33, false)
+        case "]": return (30, false)
+        case "\\": return (42, false)
+        case ";": return (41, false)
+        case "'": return (39, false)
+        case ",": return (43, false)
+        case ".": return (47, false)
+        case "/": return (44, false)
+        case "`": return (50, false)
+        case " ": return (49, false)
+            
+        default: return nil
+        }
+    }
+    
+    private func keyCodeForLower(_ char: Character) -> CGKeyCode {
+        switch char {
         case "a": return 0
         case "b": return 11
         case "c": return 8
@@ -186,6 +258,12 @@ class LidPasswordManager: ObservableObject {
         case "x": return 7
         case "y": return 16
         case "z": return 6
+        default: return 0
+        }
+    }
+    
+    private func keyCodeForDigit(_ char: Character) -> CGKeyCode {
+        switch char {
         case "1": return 18
         case "2": return 19
         case "3": return 20
@@ -196,8 +274,7 @@ class LidPasswordManager: ObservableObject {
         case "8": return 28
         case "9": return 25
         case "0": return 29
-        case " ": return 49
-        default: return nil // Unknown
+        default: return 29
         }
     }
     

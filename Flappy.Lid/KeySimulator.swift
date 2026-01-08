@@ -62,9 +62,22 @@ class KeySimulator: ObservableObject {
         print("[KeySimulator] Sent Key Code: \(targetKeyCode)")
     }
     
-    func simulateSpecificKey(_ code: CGKeyCode) {
+    func simulateSpecificKey(_ code: CGKeyCode, downOnly: Bool = false, upOnly: Bool = false) {
         let source = CGEventSource(stateID: .hidSystemState)
         
+        if upOnly {
+            guard let keyUp = CGEvent(keyboardEventSource: source, virtualKey: code, keyDown: false) else { return }
+            keyUp.post(tap: .cghidEventTap)
+            return
+        }
+        
+        if downOnly {
+            guard let keyDown = CGEvent(keyboardEventSource: source, virtualKey: code, keyDown: true) else { return }
+            keyDown.post(tap: .cghidEventTap)
+            return
+        }
+        
+        // Default: Press and Release
         guard let keyDown = CGEvent(keyboardEventSource: source, virtualKey: code, keyDown: true) else { return }
         guard let keyUp = CGEvent(keyboardEventSource: source, virtualKey: code, keyDown: false) else { return }
         

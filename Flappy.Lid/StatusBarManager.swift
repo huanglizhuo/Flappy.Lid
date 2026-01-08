@@ -29,6 +29,14 @@ class StatusBarManager: ObservableObject {
         button.title = "\(angleStr) [\(keyName)]"
     }
     
+    func updateLidPasswordDisplay(angle: Double, count: Int, isMonitoring: Bool) {
+        guard let button = statusItem?.button else { return }
+        let angleStr = String(format: "%.1f°", angle)
+        // Format: "23.5° | Count: 2 | Monitoring"
+        let statusStr = isMonitoring ? "Ready" : "Idle"
+        button.title = "\(angleStr) | Cnt: \(count) | \(statusStr)"
+    }
+    
     func minimizeToMenuBar() {
         start() // Ensure it's started
         isMinimized = true

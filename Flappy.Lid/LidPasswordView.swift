@@ -8,29 +8,32 @@ struct LidPasswordView: View {
     
     var body: some View {
         ZStack {
-            VStack(spacing: 30) {
-                // Top Bar
-                HStack {
-                    Button(action: {
-                        withAnimation {
-                            gameEngine.appMode = .selecting
+            VStack(spacing: 20) {
+                // Top Header
+                ZStack {
+                    // Centered Title
+                    Text("LID PASSWORD")
+                        .font(.flappy(size: 40))
+                        .foregroundColor(.white)
+                        .shadow(radius: 5)
+                        
+                    // Buttons
+                    HStack {
+                        Button(action: {
+                            withAnimation {
+                                gameEngine.appMode = .selecting
+                            }
+                        }) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.system(size: 30))
+                                .foregroundColor(.white.opacity(0.8))
                         }
-                    }) {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.system(size: 30))
-                            .foregroundColor(.white.opacity(0.8))
+                        .buttonStyle(.plain)
+                        
+                        Spacer()
                     }
-                    .buttonStyle(.plain)
-                    
-                    Spacer()
+                    .padding()
                 }
-                .padding()
-                
-                // Title
-                Text("LID PASSWORD")
-                    .font(.flappy(size: 40))
-                    .foregroundColor(.white)
-                    .shadow(radius: 5)
                 
                 Spacer()
                 
@@ -39,13 +42,13 @@ struct LidPasswordView: View {
                     // Border Ring
                     Circle()
                         .stroke(Color.white.opacity(0.2), lineWidth: 4)
-                        .frame(width: 250, height: 250)
+                        .frame(width: 250, height: 200)
                     
                     // State Logic
                     if passwordManager.state == .monitoring {
                          Circle()
                             .fill(Color.blue.opacity(0.2))
-                            .frame(width: 230, height: 230)
+                            .frame(width: 120, height: 120)
                             .overlay(
                                 Circle()
                                     .stroke(Color.blue.opacity(0.5), lineWidth: 2)
@@ -78,38 +81,29 @@ struct LidPasswordView: View {
                     .foregroundColor(.gray)
                     .padding(.top)
                 
-                Spacer()
+//                Spacer()
                 
                 // Configuration
-                Button(action: { isEditingPassword = true }) {
+                LidPasswordSettingsButton(passwordManager: passwordManager)
+                
+                // Minimize Button
+                Button(action: {
+                    StatusBarManager.shared.minimizeToMenuBar()
+                }) {
                     HStack {
-                        Image(systemName: "asterisk.rectangle")
-                        Text(passwordManager.targetPassword.isEmpty ? "SET PASSWORD" : "CHANGE PASSWORD")
+                        Image(systemName: "arrow.down.right.and.arrow.up.left")
+                        Text("MINIMIZE TO MENU BAR")
                     }
-                    .padding()
-                    .background(Color.white.opacity(0.1))
+                    .font(.flappy(size: 16))
+                    .foregroundColor(.white.opacity(0.8))
+                    .padding(10)
+                    .background(Color.black.opacity(0.3))
                     .cornerRadius(10)
                 }
                 .buttonStyle(.plain)
-                .popover(isPresented: $isEditingPassword) {
-                    VStack(spacing: 20) {
-                        Text("Enter Unlock Password")
-                            .font(.headline)
-                        SecureField("Password", text: $passwordManager.targetPassword)
-                            .textFieldStyle(.roundedBorder)
-                            .frame(width: 200)
-                        
-                        Divider()
-                        
-                        Stepper("Trigger Count: \(passwordManager.requiredCount)", value: $passwordManager.requiredCount, in: 1...10)
-                            .frame(width: 200)
-                        
-                        Button("Done") { isEditingPassword = false }
-                    }
-                    .padding()
-                }
+                .padding(.bottom, 10)
                 
-               Text("Instructions:\n1. Close lid below \(Int(passwordManager.maxActivationAngle))°.\n2. Quickly open/close \(passwordManager.requiredCount) times within 3s.\n(Open > 4° delta)")
+                Text("Instructions:\n1. Close lid below \(Int(passwordManager.maxActivationAngle))°.\n2. Quickly open/close \(passwordManager.requiredCount) times within 3s.\n(Open > 2° delta)")
                     .font(.caption)
                     .multilineTextAlignment(.center)
                     .foregroundColor(.gray)
@@ -136,4 +130,56 @@ struct LidPasswordView: View {
         case .success: return "UNLOCKED!"
         }
     }
+}
+
+struct LidPasswordSettingsButton: View {
+    @ObservedObject var passwordManager: LidPasswordManager
+    @State private var isEditingPassword = false
+    
+    var body: some View {
+        Button(action: { isEditingPassword = true }) {
+            HStack {
+                Image(systemName: "lock.rectangle")
+                Text(passwordManager.targetPassword.isEmpty ? "SET PASSWORD" : "CHANGE PASSWORD")
+            }
+            .padding()
+            .background(Color.white.opacity(0.1))
+            .cornerRadius(10)
+        }
+        .buttonStyle(.plain)
+        .popover(isPresented: $isEditingPassword) {
+            VStack(spacing: 20) {
+                Text("Enter Unlock Password")
+                    .font(.headline)
+                Text("(ASCII Characters Only)")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                SecureField("Password", text: $passwordManager.targetPassword)
+                    .textFieldStyle(.roundedBorder)
+                    .frame(width: 200)
+                
+                Divider()
+                
+                Stepper("Trigger Count: \(passwordManager.requiredCount)", value: $passwordManager.requiredCount, in: 1...10)
+                    .frame(width: 200)
+                
+                Divider()
+                
+                Toggle("Auto Press Enter", isOn: $passwordManager.isAutoEnterEnabled)
+                    .toggleStyle(.switch)
+                     .frame(width: 200)
+                
+                Button("Done") { isEditingPassword = false }
+            }
+            .padding()
+        }
+    }
+}
+
+#Preview {
+    LidPasswordView(
+        gameEngine: GameViewModel(),
+        lidMonitor: LidAngleMonitor()
+    )
+    .background(Color(red: 0.1, green: 0.1, blue: 0.2))
 }

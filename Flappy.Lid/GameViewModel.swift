@@ -119,12 +119,27 @@ class GameViewModel: ObservableObject {
         
         // Sync with StatusBarManager
         monitor.$currentAngle
-            .sink { [weak self] angle in
-                guard let self = self, self.appMode == .keySimulator else { return }
-                // We should probably optimize this to not update every frame if not minimized?
-                // But for now, live update is fine.
-                let keyName = KeySimulator.shared.keyCodeToName(KeySimulator.shared.targetKeyCode)
-                StatusBarManager.shared.updateDisplay(angle: angle, keyName: keyName)
+            .combineLatest(LidPasswordManager.shared.$openCount, LidPasswordManager.shared.$state)
+            .sink { [weak self] (angle, count, state) in
+                guard let self = self else { return }
+                
+                if self.appMode == .keySimulator {
+                    let keyName = KeySimulator.shared.keyCodeToName(KeySimulator.shared.targetKeyCode)
+                    StatusBarManager.shared.updateDisplay(angle: angle, keyName: keyName)
+                } else if self.appMode == .lidPassword {
+                    let isMonitoring = (state == .monitoring)
+                    StatusBarManager.shared.updateLidPasswordDisplay(angle: angle, count: count, isMonitoring: isMonitoring)
+                }
+            }
+            .store(in: &cancellables)
+            
+        // Trigger generic updates if needed when modes change?
+        $appMode
+            .sink { [weak self] mode in
+                if mode != .keySimulator && mode != .lidPassword {
+                     // Maybe clear title or show app name?
+                     // StatusBarManager.shared.stop()? // Only if we want to hide it
+                }
             }
             .store(in: &cancellables)
     }

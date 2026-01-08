@@ -40,6 +40,24 @@ struct GameView: View {
                 // UI Layer
                 VStack {
                     ZStack(alignment: .top) {
+                        // Top Left: Close Button
+                        HStack {
+                            Button(action: {
+                                withAnimation {
+                                    gameEngine.appMode = .selecting
+                                }
+                            }) {
+                                Image(systemName: "xmark.circle.fill")
+                                    .font(.system(size: 40))
+                                    .foregroundColor(.white)
+                                    .shadow(radius: 2)
+                            }
+                            .buttonStyle(.plain)
+                            .padding(.leading, 20)
+                            
+                            Spacer()
+                        }
+                        
                         // Centered Score
                         Text("\(gameEngine.score)")
                             .font(.flappy(size: 60))

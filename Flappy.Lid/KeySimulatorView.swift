@@ -14,38 +14,43 @@ struct KeySimulatorView: View {
             // Background is transparent or handled by ContentView
             
             VStack(spacing: 20) {
-                // Top HUD
-                HStack {
-                    // Minimize Button
-                    Button(action: { 
-                        StatusBarManager.shared.minimizeToMenuBar()
-                    }) {
-                        Image(systemName: "arrow.down.right.and.arrow.up.left")
-                            .font(.system(size: 24))
-                            .foregroundColor(.white)
-                            .shadow(radius: 5)
-                            .padding()
-                    }
-                    .buttonStyle(.plain)
-                    .help("Minimize to Menu Bar")
+                // Top Header
+                ZStack {
+                    // Centered Title
+                    Text("KEY SIMULATOR")
+                        .font(.flappy(size: 40))
+                        .foregroundColor(.white)
+                        .shadow(radius: 5)
                     
-                    Spacer()
-                    
-                    // Settings Button
-                    Button(action: { showSettings = true }) {
-                        Image(systemName: "gearshape.fill")
-                            .font(.system(size: 30))
-                            .foregroundColor(.white)
-                            .shadow(radius: 5)
-                            .padding()
+                    // Buttons
+                    HStack {
+                        // Close Button
+                        Button(action: {
+                            withAnimation {
+                                gameEngine.appMode = .selecting
+                            }
+                        }) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.system(size: 30))
+                                .foregroundColor(.white)
+                                .shadow(radius: 5)
+                                .padding()
+                        }
+                        .buttonStyle(.plain)
+                        
+                        Spacer()
+                        
+                        // Settings Button
+                        Button(action: { showSettings = true }) {
+                            Image(systemName: "gearshape.fill")
+                                .font(.system(size: 30))
+                                .foregroundColor(.white)
+                                .shadow(radius: 5)
+                                .padding()
+                        }
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
                 }
-                
-                Text("KEY SIMULATOR")
-                    .font(.flappy(size: 40))
-                    .foregroundColor(.white)
-                    .shadow(radius: 5)
                 
                 singleKeyView
                 
@@ -71,7 +76,7 @@ struct KeySimulatorView: View {
                    Date().timeIntervalSince(lastTrig) < 0.2 {
                     Circle()
                         .fill(Color.green)
-                        .frame(width: 180, height: 180)
+                        .frame(width: 120, height: 120)
                         .transition(.scale)
                 }
                 
@@ -129,6 +134,22 @@ struct KeySimulatorView: View {
                 isListeningForKey = false
             })
             
+            // Minimize Button
+            Button(action: {
+                StatusBarManager.shared.minimizeToMenuBar()
+            }) {
+                HStack {
+                    Image(systemName: "arrow.down.right.and.arrow.up.left")
+                    Text("MINIMIZE TO MENU BAR")
+                }
+                .font(.flappy(size: 16))
+                .foregroundColor(.white.opacity(0.8))
+                .padding(10)
+                .background(Color.black.opacity(0.3))
+                .cornerRadius(10)
+            }
+            .buttonStyle(.plain)
+            
             Text("Use Settings to configure Sensitivity and Trigger Mode.")
                 .font(.caption)
                 .foregroundColor(.gray)
@@ -176,4 +197,12 @@ struct KeyReaderView: NSViewRepresentable {
             onKey?(event.keyCode)
         }
     }
+}
+
+#Preview {
+    KeySimulatorView(
+        gameEngine: GameViewModel(),
+        lidMonitor: LidAngleMonitor()
+    )
+    .background(Color(red: 0.1, green: 0.1, blue: 0.2))
 }
