@@ -58,7 +58,7 @@ This project stands on the shoulders of giants (and reverse engineers):
 
 *   **The Sensor**: MacBooks have Hall Effect sensors or similar mechanisms to detect lid angle for sleep/wake. We read the raw data from `IOHIDDevice`.
 *   **The Pioneer**: [LidAngleSensor](https://github.com/samhenrigold/LidAngleSensor) by **Sam Henri Gold**. He did the hard work of finding the magic IOKit keys.
-*   **The Spark**: Directed by [this tweet](https://x.com/rebane2001/status/2007198231479103611) from **@rebane2001**, who wisely asked: *"Can I jump by closing my laptop?"*
+*   **The Spark**: Directed by [this tweet](https://x.com/rebane2001/status/2007198231479103611) from **@rebane2001**, who wisely asked: *"Can I jump by flappy my foldable device?"*
 
 ---
 
