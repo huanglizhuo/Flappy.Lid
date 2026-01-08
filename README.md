@@ -25,16 +25,16 @@ It's the only app that gives your hinge a workout while you procrastinate.
 
 ---
 
-### 🎮 Features
+### 🌟 Features
 
-#### 1. FLAPPY GAME
+#### 1. 🎮 FLAPPY GAME 
 The classic game, but you control the bird by **physically flapping your MacBook screen**. 
 *   **Open Lid** = Flap Up
 *   **Risk Level**: High (Please don't snap your screen)
 
 <img src="non-app-file/demo_video-ezgif.com-optimize.gif" height="300" alt="Demo GIF">
 
-#### 2. KEY SIMULATOR (Universal Controller)
+#### 2. ⌨️ KEY SIMULATOR (Universal Controller)
 Map your lid "flaps" to **ANY keyboard key**.
 *   Map it to **Space** -> Play Chrome's Dinosaur Game physically.
 *   Map it to **W** -> Walk forward in games by oscillating your screen.
@@ -42,7 +42,7 @@ Map your lid "flaps" to **ANY keyboard key**.
 
 <img src="non-app-file/key-simu.gif" height="300" alt="Demo GIF">
 
-#### 3. LID PASSWORD (James Bond Mode)
+#### 3. 🔐 LID PASSWORD (James Bond Mode 🕵🏻‍♂️)
 Automatically type a preset password when you perform a secret "Lid Handshake".
 *   **Trigger**: Quickly open/close your lid 3 times.
 *   **Action**: Type the preset password in any input box.
@@ -75,8 +75,11 @@ This project stands on the shoulders of giants (and reverse engineers):
 
 ---
 
-### 🚀 How to Run
+### 🎮🕹️👾 How to Play
 
+Download the latest release from [Releases](https://github.com/huanglizhuo/Flappy.Lid/releases) and double-click the DMG file to install.
+
+### 🛠️ How to Build
 1.  **Clone** this repository.
 2.  Open `Flappy.Lid.xcodeproj` in **Xcode**.
 3.  **Build & Run**.
