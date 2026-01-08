@@ -7,7 +7,7 @@
   </p>
 
   <p>
-    <img src="https://img.shields.io/badge/macOS-14.0+-000000?style=for-the-badge&logo=apple&logoColor=white" alt="macOS">
+    <img src="https://img.shields.io/badge/macOS-Big%20Sur%20%2B-blue?style=flat-square" alt="macOS">
     <img src="https://img.shields.io/badge/Architecture-Apple%20Silicon%20(ARM)-ff0000?style=for-the-badge&logo=arm&logoColor=white" alt="ARM Only">
     <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License">
   </p>
