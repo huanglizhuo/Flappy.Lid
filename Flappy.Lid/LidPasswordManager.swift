@@ -65,11 +65,19 @@ class LidPasswordManager: ObservableObject {
     } 
     
     func startMonitoring(lidMonitor: LidAngleMonitor) {
+        stopMonitoring() // Clear previous subscriptions
+        
         lidMonitor.$currentAngle
             .sink { [weak self] angle in
                 self?.processAngleUpdate(angle)
             }
             .store(in: &cancellables)
+    }
+    
+    func stopMonitoring() {
+        cancellables.removeAll()
+        state = .idle
+        resetLogic()
     }
     
     private func processAngleUpdate(_ currentAngle: Double) {
@@ -142,6 +150,10 @@ class LidPasswordManager: ObservableObject {
         let autoEnter = isAutoEnterEnabled
         
         DispatchQueue.global().async {
+            // 1. Switch to ASCII Input Source (Safe IME Bypass)
+            let switched = InputSourceManager.shared.switchToAsciiCapableSource()
+            if switched { Thread.sleep(forTimeInterval: 0.1) } // Small delay for system switch
+            
             for char in passwordToType {
                 if let (code, needsShift) = self.keyCode(for: char) {
                     if needsShift {
@@ -164,6 +176,12 @@ class LidPasswordManager: ObservableObject {
             // Auto Enter
             if autoEnter {
                 KeySimulator.shared.simulateSpecificKey(36)
+            }
+            
+            // 2. Restore Input Source
+            if switched {
+                Thread.sleep(forTimeInterval: 0.1)
+                InputSourceManager.shared.restorePreviousSource()
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

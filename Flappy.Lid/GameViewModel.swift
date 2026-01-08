@@ -106,6 +106,8 @@ class GameViewModel: ObservableObject {
             .sink { [weak self] triggered in
                 guard let self = self, triggered else { return }
                 
+                print("[GameViewModel] jumpTriggered sink. AppMode: \(self.appMode)")
+                
                 switch self.appMode {
                 case .game:
                     self.jump()

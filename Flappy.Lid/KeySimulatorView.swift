@@ -13,7 +13,7 @@ struct KeySimulatorView: View {
         ZStack { // Wrap in ZStack for HUD overlay
             // Background is transparent or handled by ContentView
             
-            VStack(spacing: 20) {
+            VStack(spacing: 16) {
                 // Top Header
                 ZStack {
                     // Centered Title
@@ -41,21 +41,19 @@ struct KeySimulatorView: View {
                         Spacer()
                         
                         // Settings Button
-                        Button(action: { showSettings = true }) {
-                            Image(systemName: "gearshape.fill")
-                                .font(.system(size: 30))
-                                .foregroundColor(.white)
-                                .shadow(radius: 5)
-                                .padding()
-                        }
-                        .buttonStyle(.plain)
+//                        Button(action: { showSettings = true }) {
+//                            Image(systemName: "gearshape.fill")
+//                                .font(.system(size: 30))
+//                                .foregroundColor(.white)
+//                                .shadow(radius: 5)
+//                                .padding()
+//                        }
+//                        .buttonStyle(.plain)
                     }
                 }
-                
                 singleKeyView
-                
-                Spacer() // Push content up slightly if needed
             }
+            .padding(.top, 20)
             .sheet(isPresented: $showSettings) {
                 SettingsView(isPresented: $showSettings, gameEngine: gameEngine, lidMonitor: lidMonitor)
             }
@@ -65,12 +63,12 @@ struct KeySimulatorView: View {
 
     // MARK: - Single Key View
     private var singleKeyView: some View {
-        VStack(spacing: 30) {
+        VStack(spacing: 10) {
             // Visual Indicator
             ZStack {
                 Circle()
                     .fill(Color.gray.opacity(0.3))
-                    .frame(width: 200, height: 200)
+                    .frame(width: 200, height: 160)
                 
                 if let lastTrig = keySimulator.lastTriggerTime,
                    Date().timeIntervalSince(lastTrig) < 0.2 {
@@ -149,11 +147,11 @@ struct KeySimulatorView: View {
                 .cornerRadius(10)
             }
             .buttonStyle(.plain)
-            
+            Spacer()
             Text("Use Settings to configure Sensitivity and Trigger Mode.")
                 .font(.caption)
                 .foregroundColor(.gray)
-                .padding(.top, 20)
+                .padding(.all, 10)
         }
     }
 }

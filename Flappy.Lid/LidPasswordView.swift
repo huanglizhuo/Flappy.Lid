@@ -8,7 +8,7 @@ struct LidPasswordView: View {
     
     var body: some View {
         ZStack {
-            VStack(spacing: 20) {
+            VStack(spacing: 16) {
                 // Top Header
                 ZStack {
                     // Centered Title
@@ -34,15 +34,14 @@ struct LidPasswordView: View {
                     }
                     .padding()
                 }
-                
-                Spacer()
+                .padding(.top, 20)
                 
                 // Main Visualization
                 ZStack {
                     // Border Ring
                     Circle()
                         .stroke(Color.white.opacity(0.2), lineWidth: 4)
-                        .frame(width: 250, height: 200)
+                        .frame(width: 180, height: 160)
                     
                     // State Logic
                     if passwordManager.state == .monitoring {
@@ -58,7 +57,7 @@ struct LidPasswordView: View {
                             )
                     }
                     
-                    VStack(spacing: 15) {
+                    VStack(spacing: 16) {
                         Image(systemName: "lock.laptopcomputer")
                             .font(.system(size: 80))
                             .foregroundColor(statusColor)
@@ -80,9 +79,6 @@ struct LidPasswordView: View {
                     .font(.caption)
                     .foregroundColor(.gray)
                     .padding(.top)
-                
-//                Spacer()
-                
                 // Configuration
                 LidPasswordSettingsButton(passwordManager: passwordManager)
                 
@@ -102,16 +98,19 @@ struct LidPasswordView: View {
                 }
                 .buttonStyle(.plain)
                 .padding(.bottom, 10)
-                
-                Text("Instructions:\n1. Close lid below \(Int(passwordManager.maxActivationAngle))°.\n2. Quickly open/close \(passwordManager.requiredCount) times within 3s.\n(Open > 2° delta)")
+                Spacer()
+                Text("Instructions: Close lid below \(Int(passwordManager.maxActivationAngle))°. -> Quickly open/close \(passwordManager.requiredCount) times within 3s")
                     .font(.caption)
                     .multilineTextAlignment(.center)
                     .foregroundColor(.gray)
-                    .padding(.bottom, 30)
+                    .padding(.all, 10)
             }
         }
         .onAppear {
             passwordManager.startMonitoring(lidMonitor: lidMonitor)
+        }
+        .onDisappear {
+            passwordManager.stopMonitoring()
         }
     }
     
