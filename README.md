@@ -11,6 +11,10 @@
     <img src="https://img.shields.io/badge/Architecture-Apple%20Silicon%20(ARM)-ff0000?style=for-the-badge&logo=arm&logoColor=white" alt="ARM Only">
     <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License">
   </p>
+  
+  <p>
+    <a href="README.md">English</a> | <a href="README_zh.md">中文</a>
+  </p>
 </div>
 
 ---
@@ -19,7 +23,7 @@
 
 **Flippy Lid** turns your MacBook's lid into a physical input controller. Yes, really. 
 
-By tapping into the hidden `AppleCLCD` hinge angle sensors (via some dark IOKit magic 🧙‍♂️), we detect when you open or close your laptop. We then translate those physical "flaps" into digital actions.
+By tapping into the hidden hinge angle sensors (via some dark IOKit magic 🧙‍♂️), we detect when you open or close your laptop. We then translate those physical "flaps" into digital actions.
 
 It's the only app that gives your hinge a workout while you procrastinate.
 
