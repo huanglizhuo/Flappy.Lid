@@ -54,6 +54,9 @@ Automatically type a preset password when you perform a secret "Lid Handshake".
 
 <img src="non-app-file/lid-password.gif" height="300" alt="Demo GIF">
 
+#### 4. 💡 Got more wild ideas?
+Open an issue [here](https://github.com/huanglizhuo/Flappy.Lid/issues/new) or just fire off a PR!
+
 ---
 
 ### 💡 The "Science"
